@@ -18,6 +18,10 @@ const userSchema = Schema(
     avatarUrl: {
       type: String,
       required: [true, "Avatar is required"]
+    },
+    balance: {
+      type: Number,
+      default: null
     }
   },
   {versionKey: false, timestamps: true}
