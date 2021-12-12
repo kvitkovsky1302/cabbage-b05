@@ -7,7 +7,8 @@ const {
   login,
   logout,
   getUser,
-  patchUserAvatar
+  patchUserAvatar,
+  updateUserBalance
 } = require("../../controllers/auth/index")
 const {validationRulesPostAuth} = require("../../validations/auth")
 const validator = require("../../validations/midleware")
@@ -38,5 +39,10 @@ router.patch(
   controllersWrapper(authenticate),
   upload.single("avatar"),
   controllersWrapper(patchUserAvatar)
+)
+router.patch(
+  "/user/balance",
+  controllersWrapper(authenticate),
+  controllersWrapper(updateUserBalance)
 )
 module.exports = router
