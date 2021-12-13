@@ -1,3 +1,3 @@
 const User = require("./auth")
-
-module.exports = {User}
+const Expense = require("./expense")
+module.exports = {User, Expense}
