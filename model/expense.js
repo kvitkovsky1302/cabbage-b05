@@ -13,12 +13,13 @@ const expenseSchema = Schema(
       required: [true, "Введите описание расхода"]
     },
     price: {
-      type: Number,
+      type: String,
       required: [true, "Введите сумму расхода"]
     },
     date: {
       type: String,
-      required: [true, "Введите дату покупки"]
+      required: [true, "Введите дату покупки"],
+      default: moment().valueOf()
     },
     year: {
       type: String,
@@ -27,10 +28,6 @@ const expenseSchema = Schema(
     month: {
       type: String,
       default: moment().format("MMMM")
-    },
-    day: {
-      type: String,
-      default: moment().format("DD")
     },
     owner: {
       type: Schema.Types.ObjectId,
