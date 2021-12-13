@@ -1,8 +1,12 @@
-const {Expense} = require("../../model/index")
+const {Expense, User} = require("../../model/index")
+
 const moment = require("moment")
 
 const postTransaction = async (req, res, next) => {
-  const {_id} = req.user
+  const {_id, balance} = req.user
+  const updateBalance = balance - Number(req.body.price)
+
+  await User.findByIdAndUpdate(_id, {balance: updateBalance})
   const month = moment(Number(req.body.date)).format("MMMM")
   const year = moment(Number(req.body.date)).format("YYYY")
   const addedTransaction = await Expense.create({
@@ -11,6 +15,8 @@ const postTransaction = async (req, res, next) => {
     month,
     owner: _id
   })
-  res.status(201).json({status: "success", data: addedTransaction})
+  res
+    .status(201)
+    .json({status: "success", data: addedTransaction, balance: updateBalance})
 }
 module.exports = postTransaction
