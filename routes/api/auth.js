@@ -9,7 +9,7 @@ const {
   getUser,
   patchUserAvatar,
   updateUserBalance
-} = require("../../controllers/auth/index")
+} = require("../../controllers/auth")
 const {validationRulesPostAuth} = require("../../validations/auth")
 const validator = require("../../validations/midleware")
 const upload = require("../../controllers/upload")

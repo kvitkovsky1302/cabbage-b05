@@ -3,7 +3,10 @@ const router = express.Router()
 const controllersWrapper = require("../../controllers/wrapper")
 const authenticate = require("../../controllers/authenticate")
 const validator = require("../../validations/midleware")
-const {postTransaction} = require("../../controllers/expense/index")
+const {
+  postTransaction,
+  deleteTransaction
+} = require("../../controllers/expense")
 const {validationRulesPostTransaction} = require("../../validations/expense")
 
 router.post(
@@ -12,5 +15,9 @@ router.post(
   validator(validationRulesPostTransaction),
   controllersWrapper(postTransaction)
 )
-
+router.delete(
+  "/:transactionId",
+  controllersWrapper(authenticate),
+  controllersWrapper(deleteTransaction)
+)
 module.exports = router

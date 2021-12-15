@@ -13,11 +13,11 @@ const expenseSchema = Schema(
       required: [true, "Введите описание расхода"]
     },
     price: {
-      type: String,
+      type: Number,
       required: [true, "Введите сумму расхода"]
     },
     date: {
-      type: String,
+      type: Number,
       required: [true, "Введите дату покупки"],
       default: moment().valueOf()
     },

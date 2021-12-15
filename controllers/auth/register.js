@@ -1,6 +1,5 @@
 const {Conflict} = require("http-errors")
 const gravatar = require("gravatar")
-require("dotenv").config()
 const {User} = require("../../model/index")
 
 const register = async (req, res) => {

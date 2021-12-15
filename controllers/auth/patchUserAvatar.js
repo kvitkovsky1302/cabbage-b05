@@ -7,14 +7,14 @@ const avaDir = join(__dirname, "../../", "public/avatars")
 
 const patchUserAvatar = async (req, res) => {
   const {filename, path: tempFilePath} = req.file
-  const id = req.user._id
+  const {_id} = req.user
   const ava = await Jimp.read(tempFilePath)
   ava.resize(250, 250).writeAsync(`${tempFilePath}`)
-  const avatarUrl = join(avaDir, `${id}_${filename}`)
-  const avaShortPath = join("/avatars", `${id}_${filename}`)
+  const avatarUrl = join(avaDir, `${_id}_${filename}`)
+  const avaShortPath = join("/avatars", `${_id}_${filename}`)
   await fs.rename(tempFilePath, avatarUrl)
   const user = await User.findByIdAndUpdate(
-    id,
+    _id,
     {avatarUrl: avaShortPath},
     {new: true}
   )

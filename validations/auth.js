@@ -16,8 +16,6 @@ const validationRulesPostAuth = checkSchema({
     isEmail: true,
     errorMessage:
       "Введите действительный электронный адрес в формате 'имя_пользователя@имя_домена' "
-  },
-  subscription: {in: ["body"], trim: true, isString: true}
+  }
 })
-
 module.exports = {validationRulesPostAuth}
