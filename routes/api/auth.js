@@ -20,12 +20,12 @@ router.post(
   controllersWrapper(register)
 )
 router.post(
-  "/user/signin",
+  "/users/signin",
   validator(validationRulesPostAuth),
   controllersWrapper(login)
 )
 router.post(
-  "/user/signout",
+  "/users/signout",
   controllersWrapper(authenticate),
   controllersWrapper(logout)
 )
@@ -41,7 +41,7 @@ router.patch(
   controllersWrapper(patchUserAvatar)
 )
 router.patch(
-  "/user/balance",
+  "/users/balance",
   controllersWrapper(authenticate),
   controllersWrapper(updateUserBalance)
 )
