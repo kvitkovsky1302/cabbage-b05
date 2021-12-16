@@ -13,11 +13,11 @@ const incomeSchema = Schema(
       required: [true, "Введите описание дохода"]
     },
     sum: {
-      type: String,
+      type: Number,
       required: [true, "Введите сумму дохода"]
     },
     date: {
-      type: String,
+      type: Number,
       required: [true, "Введите дату транзакции"],
       default: moment().valueOf()
     },

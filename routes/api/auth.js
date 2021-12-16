@@ -9,7 +9,7 @@ const {
   getUser,
   patchUserAvatar,
   updateUserBalance
-} = require("../../controllers/auth/index")
+} = require("../../controllers/auth")
 const {validationRulesPostAuth} = require("../../validations/auth")
 const validator = require("../../validations/midleware")
 const upload = require("../../controllers/upload")
@@ -20,12 +20,12 @@ router.post(
   controllersWrapper(register)
 )
 router.post(
-  "/user/signin",
+  "/users/signin",
   validator(validationRulesPostAuth),
   controllersWrapper(login)
 )
 router.post(
-  "/user/signout",
+  "/users/signout",
   controllersWrapper(authenticate),
   controllersWrapper(logout)
 )
@@ -41,7 +41,7 @@ router.patch(
   controllersWrapper(patchUserAvatar)
 )
 router.patch(
-  "/user/balance",
+  "/users/balance",
   controllersWrapper(authenticate),
   controllersWrapper(updateUserBalance)
 )

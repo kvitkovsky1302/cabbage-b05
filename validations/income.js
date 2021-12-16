@@ -29,20 +29,29 @@ const validationRulesPostIncome = checkSchema({
     in: ["body"],
     notEmpty: true,
     trim: true,
-    isNumeric: true,
-    errorMessage: "Введите сумму дохода.",
+    errorMessage: "Введите сумму дохода",
     bail: true,
+    isNumeric: {
+      args: true,
+      errorMessage: "Введите сумму дохода в числовом формате",
+      bail: true
+    },
     matches: {
-      options: ["^\\d+[.]\\d{2}$"],
-      errorMessage: "Введите сумму в формате 0.00"
+      options: ["^\\d+[.]?\\d{0,2}$"],
+      errorMessage: "Введите сумму дохода в формате 0 или 0.0 или 0.00"
     }
   },
   date: {
     in: ["body"],
     notEmpty: true,
     trim: true,
-    isNumeric: true,
-    errorMessage: "Введите дату."
+    errorMessage: "Введите дату получения дохода",
+    bail: true,
+    isNumeric: {
+      args: true,
+      errorMessage:
+        "Введите дату получения дохода в числовом формате в милисекундах "
+    }
   }
 })
 

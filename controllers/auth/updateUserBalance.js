@@ -1,12 +1,11 @@
 const {BadRequest} = require("http-errors")
-
 const {User} = require("../../model")
 
 const updateUserBalance = async (req, res) => {
   const balance = Number(req.body.balance)
 
   if (Number.isNaN(balance)) {
-    throw new BadRequest()
+    throw new BadRequest("Введите сумму в числовом формате")
   }
 
   const {_id, email} = req.user

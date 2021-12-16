@@ -29,20 +29,28 @@ const validationRulesPostTransaction = checkSchema({
     in: ["body"],
     notEmpty: true,
     trim: true,
-    isNumeric: true,
-    errorMessage: "Введите сумму расхода.",
+    errorMessage: "Введите сумму расхода",
     bail: true,
+    isNumeric: {
+      args: true,
+      errorMessage: "Введите сумму в числовом формате",
+      bail: true
+    },
     matches: {
-      options: ["^\\d+[.]\\d{2}$"],
-      errorMessage: "Введите сумму в формате 0.00"
+      options: ["^\\d+[.]?\\d{0,2}$"],
+      errorMessage: "Введите сумму в формате 0 или 0.0 или 0.00"
     }
   },
   date: {
     in: ["body"],
     notEmpty: true,
     trim: true,
-    isNumeric: true,
-    errorMessage: "Введите дату."
+    errorMessage: "Введите дату покупки",
+    bail: true,
+    isNumeric: {
+      args: true,
+      errorMessage: "Введите дату покупки в числовом формате в милисекундах "
+    }
   }
 })
 

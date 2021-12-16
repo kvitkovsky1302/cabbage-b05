@@ -1,3 +1,3 @@
 const postIncome = require("./postIncome")
-
-module.exports = {postIncome}
+const updateUserBalance = require("../auth/updateUserBalance")
+module.exports = {postIncome, updateUserBalance}
