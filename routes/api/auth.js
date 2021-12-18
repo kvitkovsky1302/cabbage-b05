@@ -11,6 +11,7 @@ const {
   updateUserBalance
 } = require("../../controllers/auth")
 const {validationRulesPostAuth} = require("../../validations/auth")
+const {validationRulesUpdateBalance} = require("../../validations/balance")
 const validator = require("../../validations/midleware")
 const upload = require("../../controllers/upload")
 
@@ -43,6 +44,7 @@ router.patch(
 router.patch(
   "/users/balance",
   controllersWrapper(authenticate),
+  validator(validationRulesUpdateBalance),
   controllersWrapper(updateUserBalance)
 )
 module.exports = router
