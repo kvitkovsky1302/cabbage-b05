@@ -1,3 +1,4 @@
 const postTransaction = require("./postTransaction")
 const deleteTransaction = require("./delTransaction")
-module.exports = {postTransaction, deleteTransaction}
+const getTransactions = require("./getTransactions")
+module.exports = {postTransaction, deleteTransaction, getTransactions}

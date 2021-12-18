@@ -67,10 +67,13 @@
 
   **`post`** `localhost:3001/api/expense`
 
+- ввод даты не обязателен, валидация будет происходить только при наличии
+  переменной в объекте, иначе запишет текущее значение
+
   ```js
   {
-    name: "",
-    description: "",
+    name: "string",
+    description: "string",
     price: 123.34,
     date: 1639598905716
   }
@@ -86,9 +89,46 @@
 
   ```js
   {
-    name: "",
-    description: "",
+    name: "string",
+    description: "string",
     sum: 15000,
     date: 1639598905716
   }
   ```
+
+- ### Получение транзакций расхода
+  **`get`**
+  `localhost:3001/api/expense?category=техника&month=декабрь&year=2021`
+
+```js
+{
+    "status": "success",
+    "totalPrice": 694.1,
+    "data": [
+        {
+            "_id": "61bdd77fc538e6d0809d9735",
+            "name": "техника",
+            "description": "бластер тороидального поля",
+            "price": 457.55,
+            "year": "2021",
+            "month": "декабрь",
+            "owner": {
+                "_id": "61b5bfbd6c8dead153c330ab",
+                "email": "terminator@mail.com"
+            }
+        },
+        {
+            "_id": "61bdd7c3c538e6d0809d9739",
+            "name": "техника",
+            "description": "квазирезистивный антигравитатор",
+            "price": 236.55,
+            "year": "2021",
+            "month": "декабрь",
+            "owner": {
+                "_id": "61b5bfbd6c8dead153c330ab",
+                "email": "terminator@gmail.com"
+            }
+        }
+    ]
+}
+```
