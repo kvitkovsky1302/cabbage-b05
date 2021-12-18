@@ -6,7 +6,7 @@ const validator = require("../../validations/midleware")
 const {
   postIncome,
   deleteIncomeTransaction,
-  getAllIncomeTransaction
+  getIncomeTransaction
 } = require("../../controllers/income")
 const {validationRulesPostIncome} = require("../../validations/income")
 
@@ -26,7 +26,7 @@ router.delete(
 router.get(
   "/",
   controllersWrapper(authenticate),
-  controllersWrapper(getAllIncomeTransaction)
+  controllersWrapper(getIncomeTransaction)
 )
 
 module.exports = router
