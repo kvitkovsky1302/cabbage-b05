@@ -43,13 +43,17 @@ const validationRulesPostTransaction = checkSchema({
   },
   date: {
     in: ["body"],
-    notEmpty: true,
+    if: {options: value => value},
     trim: true,
-    errorMessage: "Введите дату покупки",
-    bail: true,
     isNumeric: {
       args: true,
-      errorMessage: "Введите дату покупки в числовом формате в милисекундах "
+      errorMessage: "Введите дату покупки в числовом формате",
+      bail: true
+    },
+    matches: {
+      options: ["^d{13,14}$"],
+      errorMessage:
+        "Введите дату покупки в милисекундах с начала эпохи захвата мира SKYNET"
     }
   }
 })

@@ -5,7 +5,8 @@ const authenticate = require("../../controllers/authenticate")
 const validator = require("../../validations/midleware")
 const {
   postTransaction,
-  deleteTransaction
+  deleteTransaction,
+  getTransactions
 } = require("../../controllers/expense")
 const {validationRulesPostTransaction} = require("../../validations/expense")
 
@@ -19,5 +20,10 @@ router.delete(
   "/:transactionId",
   controllersWrapper(authenticate),
   controllersWrapper(deleteTransaction)
+)
+router.get(
+  "/",
+  controllersWrapper(authenticate),
+  controllersWrapper(getTransactions)
 )
 module.exports = router

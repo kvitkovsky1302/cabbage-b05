@@ -7,8 +7,12 @@ const postTransaction = async (req, res, next) => {
   const {date, price} = req.body
   const updateBalance = balance - Number(price)
   await User.findByIdAndUpdate(_id, {balance: updateBalance})
-  const month = moment(Number(date)).format("MMMM")
-  const year = moment(Number(date)).format("YYYY")
+  let year
+  let month
+  if (date) {
+    month = moment(Number(date)).format("MMMM")
+    year = moment(Number(date)).format("YYYY")
+  }
   const addedTransaction = await Expense.create({
     ...req.body,
     year,
