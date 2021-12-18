@@ -1,5 +1,5 @@
 const postIncome = require("./postIncome")
 const deleteIncomeTransaction = require("./deleteIncomeTransaction")
-const getAllIncomeTransaction = require("./getAllIncomeTransaction")
+const getIncomeTransaction = require("./getIncomeTransaction")
 
-module.exports = {postIncome, deleteIncomeTransaction, getAllIncomeTransaction}
+module.exports = {postIncome, deleteIncomeTransaction, getIncomeTransaction}
