@@ -3,8 +3,8 @@ const {Income, User} = require("../../model/index")
 const moment = require("moment")
 
 const postIncome = async (req, res, next) => {
-  const {_id, balance} = req.user
-  const updateBalance = balance + Number(req.body.sum)
+  const {_id, price} = req.user
+  const updateBalance = price + Number(req.body.sum)
 
   await User.findByIdAndUpdate(_id, {balance: updateBalance})
   const month = moment(Number(req.body.date)).format("MMMM")

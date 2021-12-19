@@ -51,7 +51,7 @@ const validationRulesPostTransaction = checkSchema({
       bail: true
     },
     matches: {
-      options: ["^d{13,14}$"],
+      options: ["^\\d+[.]?\\d{0,2}$"],
       errorMessage:
         "Введите дату покупки в милисекундах с начала эпохи захвата мира SKYNET"
     }

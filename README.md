@@ -91,7 +91,7 @@
   {
     name: "string",
     description: "string",
-    sum: 15000,
+    price: 15000,
     date: 1639598905716
   }
   ```
