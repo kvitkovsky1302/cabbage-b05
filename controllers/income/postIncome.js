@@ -1,6 +1,22 @@
 const {Income, User} = require("../../model/index")
 
 const moment = require("moment")
+moment.updateLocale("ru", {
+  months: [
+    "Январь",
+    "Февраль",
+    "Март",
+    "Апрель",
+    "Май",
+    "Июнь",
+    "Июль",
+    "Август",
+    "Сентябрь",
+    "Октябрь",
+    "Ноябрь",
+    "Декабрь"
+  ]
+})
 
 const postIncome = async (req, res, next) => {
   const {_id, balance} = req.user
