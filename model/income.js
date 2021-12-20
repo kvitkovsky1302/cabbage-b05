@@ -12,7 +12,7 @@ const incomeSchema = Schema(
       type: String,
       required: [true, "Введите описание дохода"]
     },
-    price: {
+    sum: {
       type: Number,
       required: [true, "Введите сумму дохода"]
     },
