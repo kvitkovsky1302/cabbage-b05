@@ -25,15 +25,15 @@ const validationRulesPostIncome = checkSchema({
       errorMessage: "Длинна описания должна быть не более 50 символов."
     }
   },
-  sum: {
+  price: {
     in: ["body"],
     notEmpty: true,
     trim: true,
-    errorMessage: "Введите сумму дохода",
+    errorMessage: "Введите сумму расхода",
     bail: true,
     isNumeric: {
       args: true,
-      errorMessage: "Введите сумму дохода в числовом формате",
+      errorMessage: "Введите сумму в числовом формате",
       bail: true
     },
     matches: {
