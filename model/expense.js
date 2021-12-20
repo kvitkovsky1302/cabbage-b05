@@ -1,6 +1,5 @@
 const {Schema, model} = require("mongoose")
 const moment = require("moment")
-// moment.locale("ru")
 
 const expenseSchema = Schema(
   {
@@ -27,7 +26,7 @@ const expenseSchema = Schema(
     },
     month: {
       type: String,
-      default: moment().format("MMMM")
+      default: moment().format("MM")
     },
     owner: {
       type: Schema.Types.ObjectId,

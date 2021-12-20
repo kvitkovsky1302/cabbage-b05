@@ -1,22 +1,5 @@
 const {Expense, User} = require("../../model/index")
-
 const moment = require("moment")
-moment.updateLocale("ru", {
-  months: [
-    "Январь",
-    "Февраль",
-    "Март",
-    "Апрель",
-    "Май",
-    "Июнь",
-    "Июль",
-    "Август",
-    "Сентябрь",
-    "Октябрь",
-    "Ноябрь",
-    "Декабрь"
-  ]
-})
 
 const postTransaction = async (req, res, next) => {
   const {_id, balance} = req.user
@@ -26,7 +9,7 @@ const postTransaction = async (req, res, next) => {
   let year
   let month
   if (date) {
-    month = moment(Number(date)).format("MMMM")
+    month = moment(Number(date)).format("MM")
     year = moment(Number(date)).format("YYYY")
   }
   const addedTransaction = await Expense.create({
