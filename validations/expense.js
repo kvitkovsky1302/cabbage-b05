@@ -1,7 +1,7 @@
 const {checkSchema} = require("express-validator")
 
 const validationRulesPostTransaction = checkSchema({
-  name: {
+  category: {
     in: ["body"],
     notEmpty: true,
     trim: true,
@@ -25,7 +25,7 @@ const validationRulesPostTransaction = checkSchema({
       errorMessage: "Длинна описания должна быть не более 50 символов."
     }
   },
-  price: {
+  sum: {
     in: ["body"],
     notEmpty: true,
     trim: true,
@@ -51,7 +51,7 @@ const validationRulesPostTransaction = checkSchema({
       bail: true
     },
     matches: {
-      options: ["^\\d+[.]?\\d{0,2}$"],
+      options: ["^\\d{13}$"],
       errorMessage:
         "Введите дату покупки в милисекундах с начала эпохи захвата мира SKYNET"
     }

@@ -1,10 +1,10 @@
 const {Schema, model} = require("mongoose")
 const moment = require("moment")
-moment.locale("ru")
+// moment.locale("ru")
 
 const expenseSchema = Schema(
   {
-    name: {
+    category: {
       type: String,
       required: [true, "Укажите категорию расхода"]
     },
@@ -12,7 +12,7 @@ const expenseSchema = Schema(
       type: String,
       required: [true, "Введите описание расхода"]
     },
-    price: {
+    sum: {
       type: Number,
       required: [true, "Введите сумму расхода"]
     },

@@ -1,10 +1,10 @@
 const {Schema, model} = require("mongoose")
 const moment = require("moment")
-moment.locale("ru")
+// moment.locale("ru")
 
 const incomeSchema = Schema(
   {
-    name: {
+    category: {
       type: String,
       required: [true, "Укажите категорию дохода"]
     },

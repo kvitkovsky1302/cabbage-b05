@@ -11,14 +11,14 @@ const getTransactions = async (req, res) => {
     filter.year = year
   }
   if (category) {
-    filter.name = category
+    filter.category = category
   }
   const data = await Expense.find(
     filter,
     "name description price year month"
   ).populate("owner", "email _id")
 
-  const totalPrice = data.reduce((acc, {price}) => acc + price, 0)
-  res.status(200).json({status: "success", totalPrice, data})
+  const totalSum = data.reduce((acc, {sum}) => acc + sum, 0)
+  res.status(200).json({status: "success", totalSum, data})
 }
 module.exports = getTransactions

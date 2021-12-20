@@ -14,7 +14,7 @@ const getIncomeTransaction = async (req, res) => {
   }
 
   if (category) {
-    filter.name = category
+    filter.category = category
   }
 
   const data = await Income.find(
