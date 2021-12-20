@@ -27,6 +27,7 @@ const validationRulesPostIncome = checkSchema({
   },
   sum: {
     in: ["body"],
+    notEmpty: true,
     trim: true,
     errorMessage: "Введите сумму дохода",
     bail: true,
