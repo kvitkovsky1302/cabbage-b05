@@ -8,7 +8,7 @@ const updateUserBalance = async (req, res) => {
     throw new BadRequest("Введите сумму в числовом формате")
   }
 
-  const {_id, email} = req.user
+  const {_id, email, name} = req.user
   await User.findByIdAndUpdate(_id, {balance})
 
   res.json({
@@ -17,6 +17,7 @@ const updateUserBalance = async (req, res) => {
     message: "Balance updated",
     user: {
       _id,
+      name,
       email,
       balance
     }
