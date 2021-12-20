@@ -72,9 +72,9 @@
 
   ```js
   {
-    name: "string",
+    category: "string",
     description: "string",
-    price: 123.34,
+    sum: 123.34,
     date: 1639598905716
   }
   ```
@@ -89,16 +89,15 @@
 
   ```js
   {
-    name: "string",
+    category: "string",
     description: "string",
-    price: 15000,
+    sum: 15000,
     date: 1639598905716
   }
   ```
 
 - ### Получение транзакций расхода
-  **`get`**
-  `localhost:3001/api/expense?category=техника&month=декабрь&year=2021`
+  **`get`** `localhost:3001/api/expense?category=food&month=December&year=2021`
 
 ```js
 {
@@ -107,9 +106,9 @@
     "data": [
         {
             "_id": "61bdd77fc538e6d0809d9735",
-            "name": "техника",
+            "category": "техника",
             "description": "бластер тороидального поля",
-            "price": 457.55,
+            "sum": 457.55,
             "year": "2021",
             "month": "декабрь",
             "owner": {
@@ -121,7 +120,7 @@
             "_id": "61bdd7c3c538e6d0809d9739",
             "name": "техника",
             "description": "квазирезистивный антигравитатор",
-            "price": 236.55,
+            "sum": 236.55,
             "year": "2021",
             "month": "декабрь",
             "owner": {

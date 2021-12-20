@@ -4,8 +4,8 @@ const moment = require("moment")
 
 const postTransaction = async (req, res, next) => {
   const {_id, balance} = req.user
-  const {date, price} = req.body
-  const updateBalance = balance - Number(price)
+  const {date, sum} = req.body
+  const updateBalance = balance - Number(sum)
   await User.findByIdAndUpdate(_id, {balance: updateBalance})
   let year
   let month

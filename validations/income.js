@@ -1,7 +1,7 @@
 const {checkSchema} = require("express-validator")
 
 const validationRulesPostIncome = checkSchema({
-  name: {
+  category: {
     in: ["body"],
     notEmpty: true,
     trim: true,
@@ -43,14 +43,17 @@ const validationRulesPostIncome = checkSchema({
   },
   date: {
     in: ["body"],
-    notEmpty: true,
+    if: {options: value => value},
     trim: true,
-    errorMessage: "Введите дату получения дохода",
-    bail: true,
     isNumeric: {
       args: true,
+      errorMessage: "Введите дату транзакции дохода в числовом формате",
+      bail: true
+    },
+    matches: {
+      options: ["^\\d{13}$"],
       errorMessage:
-        "Введите дату получения дохода в числовом формате в милисекундах "
+        "Введите дату транзакции дохода в милисекундах с начала эпохи захвата мира SKYNET"
     }
   }
 })
