@@ -15,7 +15,7 @@ const deleteTransaction = async (req, res) => {
   if (result.owner.valueOf() !== _id.valueOf()) {
     throw new Unauthorized(`Доступ запрещен`)
   }
-  const updateBalance = balance + Number(result.price)
+  const updateBalance = balance + Number(result.sum)
   await User.findByIdAndUpdate(_id, {balance: updateBalance})
   await Expense.findByIdAndDelete(transactionId)
   res.status(200).json({status: "success", balance: updateBalance})
