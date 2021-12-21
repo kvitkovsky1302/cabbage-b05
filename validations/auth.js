@@ -1,6 +1,14 @@
 const {checkSchema} = require("express-validator")
 
 const validationRulesPostAuth = checkSchema({
+  name: {
+    in: ["body"],
+    trim: true,
+    isString: true,
+    isLength: {min: 3, max: 20},
+    errorMessage: "Пожалуйста введите имя, не менее 3 символов и не более 20",
+    bail: true
+  },
   password: {
     in: ["body"],
     trim: true,

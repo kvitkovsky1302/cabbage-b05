@@ -1,0 +1,600 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "Cabbage API docs",
+    "description": "API documentation for Team project 'Kabbage-05'. [Backend github repository](https://github.com/DaniilOvsyanniukov/cabbage-b05)",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "servers": [{"url": "https://localhost:3001"}],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authorization endpoints"
+    },
+    {
+      "name": "User",
+      "description": "User endpoints"
+    },
+    {
+      "name": "Expense",
+      "description": "Expense endpoints"
+    },
+    {
+      "name": "Income",
+      "description": "Incomes endpoints"
+    }
+  ],
+  "paths": {
+    "/api/auth/user/signup": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+        "parameters": [],
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/auth/users/signin": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User authentication",
+        "parameters": [],
+        "requestBody": {
+          "description": "Authentication's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/auth/users/signout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Logout",
+        "security": [{"Bearer": []}],
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": "Successful operation",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "User not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/auth/users/current": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get all user info",
+        "security": [{"Bearer": []}],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUserInfo"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/auth/users/avatars": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Edit avavar",
+        "security": [{"Bearer": []}],
+        "parameters": [],
+        "requestBody": {
+          "description": "User avatar object",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchUserAvatarRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/UserAvatarResponse"}
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "User not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/auth/users/balance": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Edit balance",
+        "security": [{"Bearer": []}],
+        "parameters": [],
+        "requestBody": {
+          "description": "Balance object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchBalanceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/BalanceResponse"}
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "User not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/expense": {
+      "get": {
+        "tags": ["Expense"],
+        "summary": "Get all expenses transactions",
+        "security": [{"Bearer": []}],
+        "parameters": [
+          {
+            "name": "month",
+            "in": "query",
+            "description": "",
+            "type": "string"
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "description": "",
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetExpensesRequest"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "User not found",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": ["Expense"],
+        "summary": "Add expense transaction",
+        "security": [{"Bearer": []}],
+        "parameters": [],
+        "requestBody": {
+          "description": "Expense object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExpenseRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExpenseResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "User not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/expense/{transactionId}": {
+      "delete": {
+        "tags": ["Expense"],
+        "summary": "Delete expense transaction",
+        "security": [{"Bearer": []}],
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "User not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/income": {
+      "get": {
+        "tags": ["Income"],
+        "summary": "Get all income transactions",
+        "security": [{"Bearer": []}],
+        "parameters": [
+          {
+            "name": "month",
+            "in": "query",
+            "description": "",
+            "type": "string"
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "description": "",
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetIncomeRequest"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "User not found",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": ["Income"],
+        "summary": "Add income transaction",
+        "security": [{"Bearer": []}],
+        "parameters": [],
+        "requestBody": {
+          "description": "Income object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IncomeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncomeResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "User not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/income/{transactionId}": {
+      "delete": {
+        "tags": ["Income"],
+        "summary": "Delete income transaction",
+        "security": [{"Bearer": []}],
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "User not found",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "required": ["email", "password", "name"],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty123456"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Alex"
+          }
+        }
+      },
+      "RegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Alex"
+          },
+          "_id": {
+            "type": "string",
+            "description": "User's id",
+            "example": "61b754d63fb24c04e8ebc11d"
+          }
+        }
+      },
+      "LoginRequest": {
+        "required": ["email", "password"],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty123456"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzBmNjVhYTQ5Zjc3YjE4YTQyNGM2OCIsImlhdCI6MTY0MDAzOTY5NCwiZXhwIjoxNjQwMDgyODk0fQ.vzoU1t3qh1of39CBzn9o878FSNwUWmI9-z-ChBlVVGE"
+          },
+          "_id": {
+            "type": "string",
+            "description": "User's id",
+            "example": "61b754d63fb24c04e8ebc11d"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Alex"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "description": "User's avatar"
+          },
+          "balance": {
+            "type": "number",
+            "description": "User's balance",
+            "example": 15000
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "$2b$10$6WKqjz8KwDiraKWnR462lOuFlz089eiNldRXF1Fi45gxyNikHWroG"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created date",
+            "example": "2021-12-20T21:32:11.101Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Updated date",
+            "example": "2021-12-20T21:32:11.101Z"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
