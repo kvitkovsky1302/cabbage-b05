@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "2.0.0",
+    "version": "1.0.0",
     "title": "Cabbage API docs",
     "description": "API documentation for Team project 'Kabbage-05'. [Backend github repository](https://github.com/DaniilOvsyanniukov/cabbage-b05)",
     "license": {
@@ -101,7 +101,7 @@
             "content": {}
           },
           "401": {
-            "description": "Вы ввели неверный логин или пароль. Повторите вход или зарегистрируйтесь.",
+            "description": "Unauthorized",
             "content": {}
           }
         }
@@ -160,7 +160,7 @@
         "security": [{"Bearer": []}],
         "parameters": [],
         "requestBody": {
-          "description": "",
+          "description": "User avatar object",
           "required": true,
           "content": {
             "multipart/form-data": {
@@ -201,7 +201,7 @@
         "security": [{"Bearer": []}],
         "parameters": [],
         "requestBody": {
-          "description": "",
+          "description": "Balance object",
           "required": true,
           "content": {
             "application/json": {
@@ -286,47 +286,72 @@
         "summary": "Add expense transaction",
         "security": [{"Bearer": []}],
         "parameters": [],
+        "requestBody": {
+          "description": "Expense object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExpenseRequest"
+              }
+            }
+          }
+        },
         "responses": {
-          "204": {
+          "201": {
             "description": "Successful operation",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExpenseResponse"
+                }
+              }
+            }
           },
           "400": {
-            "description": "No token provided",
+            "description": "Bad request",
             "content": {}
           },
           "401": {
-            "description": "Unauthorized (invalid access token)",
+            "description": "Unauthorized",
             "content": {}
           },
           "404": {
-            "description": "Invalid user / Invalid session",
+            "description": "User not found",
             "content": {}
           }
         }
       }
     },
-    "/api/expense/:transactionId": {
+    "/api/expense/{transactionId}": {
       "delete": {
         "tags": ["Expense"],
         "summary": "Delete expense transaction",
         "security": [{"Bearer": []}],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
-          "204": {
+          "200": {
             "description": "Successful operation",
             "content": {}
           },
           "400": {
-            "description": "No token provided",
+            "description": "Bad request",
             "content": {}
           },
           "401": {
-            "description": "Unauthorized (invalid access token)",
+            "description": "Unauthorized",
             "content": {}
           },
           "404": {
-            "description": "Invalid user / Invalid session",
+            "description": "User not found",
             "content": {}
           }
         }
@@ -337,22 +362,43 @@
         "tags": ["Income"],
         "summary": "Get all income transactions",
         "security": [{"Bearer": []}],
-        "parameters": [],
-        "responses": {
-          "204": {
-            "description": "Successful operation",
-            "content": {}
+        "parameters": [
+          {
+            "name": "month",
+            "in": "query",
+            "description": "",
+            "type": "string"
           },
-          "400": {
-            "description": "No token provided",
-            "content": {}
+          {
+            "name": "year",
+            "in": "query",
+            "description": "",
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetIncomeRequest"
+                }
+              }
+            }
           },
           "401": {
-            "description": "Unauthorized (invalid access token)",
+            "description": "Unauthorized",
             "content": {}
           },
           "404": {
-            "description": "Invalid user / Invalid session",
+            "description": "User not found",
             "content": {}
           }
         }
@@ -362,50 +408,192 @@
         "summary": "Add income transaction",
         "security": [{"Bearer": []}],
         "parameters": [],
+        "requestBody": {
+          "description": "Income object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IncomeRequest"
+              }
+            }
+          }
+        },
         "responses": {
-          "204": {
+          "201": {
             "description": "Successful operation",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncomeResponse"
+                }
+              }
+            }
           },
           "400": {
-            "description": "No token provided",
+            "description": "Bad request",
             "content": {}
           },
           "401": {
-            "description": "Unauthorized (invalid access token)",
+            "description": "Unauthorized",
             "content": {}
           },
           "404": {
-            "description": "Invalid user / Invalid session",
+            "description": "User not found",
             "content": {}
           }
         }
       }
     },
-    "/api/income/:transactionId": {
+    "/api/income/{transactionId}": {
       "delete": {
         "tags": ["Income"],
         "summary": "Delete income transaction",
         "security": [{"Bearer": []}],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
-          "204": {
+          "200": {
             "description": "Successful operation",
             "content": {}
           },
           "400": {
-            "description": "No token provided",
+            "description": "Bad request",
             "content": {}
           },
           "401": {
-            "description": "Unauthorized (invalid access token)",
+            "description": "Unauthorized",
             "content": {}
           },
           "404": {
-            "description": "Invalid user / Invalid session",
+            "description": "User not found",
             "content": {}
           }
         }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "required": ["email", "password", "name"],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty123456"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Alex"
+          }
+        }
+      },
+      "RegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Alex"
+          },
+          "_id": {
+            "type": "string",
+            "description": "User's id",
+            "example": "61b754d63fb24c04e8ebc11d"
+          }
+        }
+      },
+      "LoginRequest": {
+        "required": ["email", "password"],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty123456"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzBmNjVhYTQ5Zjc3YjE4YTQyNGM2OCIsImlhdCI6MTY0MDAzOTY5NCwiZXhwIjoxNjQwMDgyODk0fQ.vzoU1t3qh1of39CBzn9o878FSNwUWmI9-z-ChBlVVGE"
+          },
+          "_id": {
+            "type": "string",
+            "description": "User's id",
+            "example": "61b754d63fb24c04e8ebc11d"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Alex"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "description": "User's avatar"
+          },
+          "balance": {
+            "type": "number",
+            "description": "User's balance",
+            "example": 15000
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "$2b$10$6WKqjz8KwDiraKWnR462lOuFlz089eiNldRXF1Fi45gxyNikHWroG"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created date",
+            "example": "2021-12-20T21:32:11.101Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Updated date",
+            "example": "2021-12-20T21:32:11.101Z"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
