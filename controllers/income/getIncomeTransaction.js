@@ -19,7 +19,7 @@ const getIncomeTransaction = async (req, res) => {
 
   const data = await Income.find(
     filter,
-    "name description sum year month"
+    "name category description sum year month"
   ).populate("owner", "email _id")
   const totalIncome = data.reduce((acc, {sum}) => acc + sum, 0)
   res.status(200).json({

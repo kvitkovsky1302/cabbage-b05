@@ -9,7 +9,7 @@ const postIncome = async (req, res, next) => {
   let year
   let month
   if (date) {
-    month = moment(Number(date)).format("mm")
+    month = moment(Number(date)).format("MM")
     year = moment(Number(date)).format("YYYY")
   }
   const addedTransaction = await Income.create({
