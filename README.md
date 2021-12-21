@@ -97,7 +97,7 @@
   ```
 
 - ### Получение транзакций расхода
-  **`get`** `localhost:3001/api/expense?category=food&month=December&year=2021`
+  **`get`** `localhost:3001/api/expense?category=техника&month=12&year=2021`
 
 ```js
 {
@@ -110,7 +110,7 @@
             "description": "бластер тороидального поля",
             "sum": 457.55,
             "year": "2021",
-            "month": "декабрь",
+            "month": "12",
             "owner": {
                 "_id": "61b5bfbd6c8dead153c330ab",
                 "email": "terminator@mail.com"
@@ -122,7 +122,7 @@
             "description": "квазирезистивный антигравитатор",
             "sum": 236.55,
             "year": "2021",
-            "month": "декабрь",
+            "month": "12",
             "owner": {
                 "_id": "61b5bfbd6c8dead153c330ab",
                 "email": "terminator@gmail.com"
