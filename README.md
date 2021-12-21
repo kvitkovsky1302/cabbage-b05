@@ -15,6 +15,8 @@
 
 ## Маршруты:
 
+- ### Swagger:
+  В браузере открыть ссылку `http://localhost:3001/api-docs/`
 - ### Регистрация:
 
   **`post`** `localhost:3001/api/auth/user/signup`
