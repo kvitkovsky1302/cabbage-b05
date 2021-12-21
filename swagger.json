@@ -11,7 +11,7 @@
   },
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "servers": [{"url": "https://localhost:3001"}],
+  "servers": [{"url": "http://localhost:3001"}],
   "tags": [
     {
       "name": "Auth",
@@ -141,7 +141,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetUserInfo"
+                  "$ref": "#/components/schemas/LoginResponse"
                 }
               }
             }
@@ -175,7 +175,7 @@
             "description": "Successful operation",
             "content": {
               "application/json": {
-                "schema": {"$ref": "#/components/schemas/UserAvatarResponse"}
+                "schema": {"$ref": "#/components/schemas/LoginResponse"}
               }
             }
           },
@@ -244,19 +244,19 @@
           {
             "name": "month",
             "in": "query",
-            "description": "",
+            "description": "Month of the year",
             "type": "string"
           },
           {
             "name": "year",
             "in": "query",
-            "description": "",
+            "description": "Year",
             "type": "string"
           },
           {
             "name": "category",
             "in": "query",
-            "description": "",
+            "description": "Expense category name",
             "type": "string"
           }
         ],
@@ -340,7 +340,11 @@
         "responses": {
           "200": {
             "description": "Successful operation",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/DeleteExpenseResponse"}
+              }
+            }
           },
           "400": {
             "description": "Bad request",
@@ -462,7 +466,11 @@
         "responses": {
           "200": {
             "description": "Successful operation",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/DeleteIncomeResponse"}
+              }
+            }
           },
           "400": {
             "description": "Bad request",
@@ -506,20 +514,58 @@
       "RegistrationResponse": {
         "type": "object",
         "properties": {
-          "email": {
+          "status": {
             "type": "string",
-            "description": "User's email",
-            "format": "email"
+            "example": "success"
           },
-          "name": {
-            "type": "string",
-            "description": "User's name",
-            "example": "Alex"
-          },
-          "_id": {
-            "type": "string",
-            "description": "User's id",
-            "example": "61b754d63fb24c04e8ebc11d"
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Alex"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email"
+              },
+              "token": {
+                "type": "string",
+                "description": "",
+                "example": null
+              },
+              "avatarUrl": {
+                "type": "string",
+                "description": "User's avatar"
+              },
+              "balance": {
+                "type": "number",
+                "description": "User's balance",
+                "example": null
+              },
+              "_id": {
+                "type": "string",
+                "description": "User's id",
+                "example": "61b754d63fb24c04e8ebc11d"
+              },
+              "password": {
+                "type": "string",
+                "description": "User's password",
+                "example": "$2b$10$6WKqjz8KwDiraKWnR462lOuFlz089eiNldRXF1Fi45gxyNikHWroG"
+              },
+              "createdAt": {
+                "type": "string",
+                "description": "Created date from MongoDB",
+                "example": "2021-12-20T21:32:11.101Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "description": "Updated date from MongoDB",
+                "example": "2021-12-20T21:32:11.101Z"
+              }
+            }
           }
         }
       },
@@ -542,53 +588,481 @@
       "LoginResponse": {
         "type": "object",
         "properties": {
-          "token": {
+          "status": {
             "type": "string",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzBmNjVhYTQ5Zjc3YjE4YTQyNGM2OCIsImlhdCI6MTY0MDAzOTY5NCwiZXhwIjoxNjQwMDgyODk0fQ.vzoU1t3qh1of39CBzn9o878FSNwUWmI9-z-ChBlVVGE"
+            "example": "success"
           },
+          "user": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "User's id",
+                "example": "61b754d63fb24c04e8ebc11d"
+              },
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Alex"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email"
+              },
+              "token": {
+                "type": "string",
+                "description": "",
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzBmNjVhYTQ5Zjc3YjE4YTQyNGM2OCIsImlhdCI6MTY0MDAzOTY5NCwiZXhwIjoxNjQwMDgyODk0fQ.vzoU1t3qh1of39CBzn9o878FSNwUWmI9-z-ChBlVVGE"
+              },
+              "avatarUrl": {
+                "type": "string",
+                "description": "User's avatar"
+              },
+              "balance": {
+                "type": "number",
+                "description": "User's balance",
+                "example": 15000
+              },
+              "password": {
+                "type": "string",
+                "description": "User's password",
+                "example": "$2b$10$6WKqjz8KwDiraKWnR462lOuFlz089eiNldRXF1Fi45gxyNikHWroG"
+              },
+              "createdAt": {
+                "type": "string",
+                "description": "Created date from MongoDB",
+                "example": "2021-12-20T21:32:11.101Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "description": "Updated date from MongoDB",
+                "example": "2021-12-20T21:32:11.101Z"
+              }
+            }
+          }
+        }
+      },
+      "PatchUserAvatarRequest": {
+        "type": "object",
+        "properties": {
           "_id": {
             "type": "string",
             "description": "User's id",
-            "example": "61b754d63fb24c04e8ebc11d"
+            "example": "61c187607ba1793525f7a525"
           },
-          "email": {
+          "file": {
             "type": "string",
-            "description": "User's email",
-            "format": "email"
-          },
-          "name": {
-            "type": "string",
-            "description": "User's name",
-            "example": "Alex"
-          },
-          "avatarUrl": {
-            "type": "string",
+            "format": "binary",
             "description": "User's avatar"
-          },
+          }
+        }
+      },
+      "PatchBalanceRequest": {
+        "required": ["balance"],
+        "type": "object",
+        "properties": {
           "balance": {
             "type": "number",
             "description": "User's balance",
             "example": 15000
-          },
-          "password": {
+          }
+        }
+      },
+      "BalanceResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
             "type": "string",
-            "description": "User's password",
-            "example": "$2b$10$6WKqjz8KwDiraKWnR462lOuFlz089eiNldRXF1Fi45gxyNikHWroG"
+            "example": "success"
           },
-          "createdAt": {
-            "type": "string",
-            "description": "Created date",
-            "example": "2021-12-20T21:32:11.101Z"
+          "code": {
+            "type": "integer",
+            "example": 200
           },
-          "updatedAt": {
+          "message": {
             "type": "string",
-            "description": "Updated date",
-            "example": "2021-12-20T21:32:11.101Z"
+            "example": "Balance updated"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "User's id",
+                "example": "61b754d63fb24c04e8ebc11d"
+              },
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Alex"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email"
+              },
+              "balance": {
+                "type": "number",
+                "description": "User's balance",
+                "example": 15000
+              }
+            }
+          }
+        }
+      },
+      "GetExpensesRequest": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "totalSum": {
+            "type": "number",
+            "example": 2000
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "Transaction's id",
+                  "example": "61b754d63fb24c04e8ebc11d"
+                },
+                "category": {
+                  "type": "string",
+                  "description": "Category name",
+                  "example": "продукты"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Description",
+                  "example": "молоко"
+                },
+                "sum": {
+                  "type": "number",
+                  "description": "Transaction sum",
+                  "example": 30
+                },
+                "year": {
+                  "type": "string",
+                  "description": "Year",
+                  "example": "2021"
+                },
+                "month": {
+                  "type": "string",
+                  "description": "Month of the year",
+                  "example": "09"
+                },
+                "owner": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "description": "User's id",
+                      "example": "61b754d63fb24c04e8ebc11d"
+                    },
+                    "email": {
+                      "type": "string",
+                      "description": "User's email",
+                      "format": "email"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "ExpenseResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string",
+                "description": "Category name",
+                "example": "продукты"
+              },
+              "description": {
+                "type": "string",
+                "description": "Description",
+                "example": "молоко"
+              },
+              "sum": {
+                "type": "number",
+                "description": "Transaction sum",
+                "example": 30
+              },
+              "date": {
+                "type": "string",
+                "description": "Date",
+                "example": "1630843994253"
+              },
+              "year": {
+                "type": "string",
+                "description": "Year",
+                "example": "2021"
+              },
+              "month": {
+                "type": "string",
+                "description": "Month of the year",
+                "example": "09"
+              },
+              "owner": {
+                "type": "string",
+                "description": "User's id",
+                "example": "61c187607ba1793525f7a525"
+              },
+              "_id": {
+                "type": "string",
+                "description": "Transaction's id",
+                "example": "61b754d63fb24c04e8ebc11d"
+              },
+              "createdAt": {
+                "type": "string",
+                "description": "Created date from MongoDB",
+                "example": "2021-12-20T21:32:11.101Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "description": "Updated date from MongoDB",
+                "example": "2021-12-20T21:32:11.101Z"
+              }
+            }
+          },
+          "balance": {
+            "type": "number",
+            "description": "User's balance",
+            "example": 14970
+          }
+        }
+      },
+      "ExpenseRequest": {
+        "required": ["category", "description", "sum"],
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "Category name",
+            "example": "продукты"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description",
+            "example": "молоко"
+          },
+          "sum": {
+            "type": "number",
+            "description": "Transaction sum",
+            "example": 30
+          },
+          "date": {
+            "type": "string",
+            "description": "Date",
+            "example": "1630843994253"
+          }
+        }
+      },
+      "DeleteExpenseResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "balance": {
+            "type": "number",
+            "description": "User's balance",
+            "example": 14970
+          }
+        }
+      },
+      "GetIncomeRequest": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "totalIncome": {
+            "type": "number",
+            "example": 50000
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "Transaction's id",
+                  "example": "61b754d63fb24c04e8ebc11d"
+                },
+                "category": {
+                  "type": "string",
+                  "description": "Category name",
+                  "example": "зп"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Description",
+                  "example": "моя зп"
+                },
+                "sum": {
+                  "type": "number",
+                  "description": "Transaction sum",
+                  "example": 25000
+                },
+                "year": {
+                  "type": "string",
+                  "description": "Year",
+                  "example": "2021"
+                },
+                "month": {
+                  "type": "string",
+                  "description": "Month of the year",
+                  "example": "09"
+                },
+                "owner": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "description": "User's id",
+                      "example": "61b754d63fb24c04e8ebc11d"
+                    },
+                    "email": {
+                      "type": "string",
+                      "description": "User's email",
+                      "format": "email"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "IncomeRequest": {
+        "required": ["category", "description", "sum"],
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "Category name",
+            "example": "зп"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description",
+            "example": "моя зп"
+          },
+          "sum": {
+            "type": "number",
+            "description": "Transaction sum",
+            "example": 25000
+          },
+          "date": {
+            "type": "string",
+            "description": "Date",
+            "example": "1630843994253"
+          }
+        }
+      },
+      "IncomeResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string",
+                "description": "Category name",
+                "example": "зп"
+              },
+              "description": {
+                "type": "string",
+                "description": "Description",
+                "example": "моя зп"
+              },
+              "sum": {
+                "type": "number",
+                "description": "Transaction sum",
+                "example": 25000
+              },
+              "date": {
+                "type": "string",
+                "description": "Date",
+                "example": "1630843994253"
+              },
+              "year": {
+                "type": "string",
+                "description": "Year",
+                "example": "2021"
+              },
+              "month": {
+                "type": "string",
+                "description": "Month of the year",
+                "example": "09"
+              },
+              "owner": {
+                "type": "string",
+                "description": "User's id",
+                "example": "61c187607ba1793525f7a525"
+              },
+              "_id": {
+                "type": "string",
+                "description": "Transaction's id",
+                "example": "61b754d63fb24c04e8ebc11d"
+              },
+              "createdAt": {
+                "type": "string",
+                "description": "Created date from MongoDB",
+                "example": "2021-12-20T21:32:11.101Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "description": "Updated date from MongoDB",
+                "example": "2021-12-20T21:32:11.101Z"
+              }
+            }
+          },
+          "balance": {
+            "type": "number",
+            "description": "User's balance",
+            "example": 50970
+          }
+        }
+      },
+      "DeleteIncomeResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "balance": {
+            "type": "number",
+            "description": "User's balance",
+            "example": 28550
           }
         }
       }
     },
+
     "securitySchemes": {
       "Bearer": {
         "type": "http",
