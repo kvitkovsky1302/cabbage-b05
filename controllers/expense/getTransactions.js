@@ -15,7 +15,7 @@ const getTransactions = async (req, res) => {
   }
   const data = await Expense.find(
     filter,
-    "name category description sum year month"
+    "name category description sum date year month"
   ).populate("owner", "email _id")
 
   const totalSum = data.reduce((acc, {sum}) => acc + sum, 0)

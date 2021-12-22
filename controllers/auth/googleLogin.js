@@ -85,3 +85,16 @@ const googleRedirect = async (req, res) => {
   )
 }
 module.exports = {googleAuth, googleRedirect}
+
+//= ============получение параметров из строки=============//
+
+// const searchParams = new URLSearchParams(document.location.search)
+// for (const pair of searchParams.entries()) {
+//   console.log(pair[0] + "," + pair[1])
+// }
+
+//= ==================или======================//
+
+// const query = String(window.location.href).split("?")[1]
+// const queryObj = queryString.parse(query)
+// console.log(queryObj)
