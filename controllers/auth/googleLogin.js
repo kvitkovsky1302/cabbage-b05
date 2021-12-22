@@ -67,7 +67,7 @@ const googleRedirect = async (req, res) => {
     //   user: userWithToken
     // })
   } else {
-    const newUser = new User({email, avatarUrl})
+    const newUser = new User({email, avatarUrl, name})
     newUser.setPassword(uuid)
     const user = await newUser.save()
     const payload = {id: user._id}
