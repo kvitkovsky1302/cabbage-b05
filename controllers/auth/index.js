@@ -4,12 +4,14 @@ const logout = require("./logout")
 const getUser = require("./getUser")
 const patchUserAvatar = require("./patchUserAvatar")
 const updateUserBalance = require("./updateUserBalance")
-
+const {googleAuth, googleRedirect} = require("./googleLogin")
 module.exports = {
   register,
   login,
   logout,
   getUser,
   patchUserAvatar,
-  updateUserBalance
+  updateUserBalance,
+  googleRedirect,
+  googleAuth
 }

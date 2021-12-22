@@ -6,14 +6,13 @@ const validationRulesPostAuth = checkSchema({
     trim: true,
     isString: true,
     isLength: {min: 3, max: 20},
-    errorMessage: "Пожалуйста введите имя, не менее 3 символов и не более 20",
-    bail: true
+    errorMessage: "Пожалуйста введите имя, не менее 3 символов и не более 20"
   },
   password: {
     in: ["body"],
     trim: true,
     notEmpty: true,
-    isLength: {min: 6, max: 12},
+    isLength: {min: 6, max: 50},
     errorMessage: "Пожалуйста пароль не менее 6 символов и не более 12"
   },
   email: {
