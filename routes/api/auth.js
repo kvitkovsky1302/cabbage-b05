@@ -8,7 +8,9 @@ const {
   logout,
   getUser,
   patchUserAvatar,
-  updateUserBalance
+  updateUserBalance,
+  googleAuth,
+  googleRedirect
 } = require("../../controllers/auth")
 const {validationRulesPostAuth} = require("../../validations/auth")
 const {validationRulesUpdateBalance} = require("../../validations/balance")
@@ -47,4 +49,7 @@ router.patch(
   validator(validationRulesUpdateBalance),
   controllersWrapper(updateUserBalance)
 )
+router.get("/google", controllersWrapper(googleAuth))
+router.get("/google-redirect", controllersWrapper(googleRedirect))
+
 module.exports = router
