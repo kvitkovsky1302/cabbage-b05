@@ -56,32 +56,31 @@ const googleRedirect = async (req, res) => {
   const name = userData.data.name
   const user = await User.findOne({email})
   let token
+  let id
+  let balance
   if (user) {
     const payload = {id: user._id}
     token = jwt.sign(payload, SECRET_KEY, {expiresIn: "12h"})
     await User.findByIdAndUpdate(user._id, {
       token
     })
-    // res.status(200).json({
-    //   status: "success",
-    //   user: userWithToken
-    // })
+    id = user._id
+    balance = user.balance
   } else {
     const newUser = new User({email, avatarUrl, name})
     newUser.setPassword(uuid)
-    const user = await newUser.save()
-    const payload = {id: user._id}
+    const newUserWith = await newUser.save()
+    const payload = {id: newUserWith._id}
     token = jwt.sign(payload, SECRET_KEY, {expiresIn: "12h"})
-    await User.findByIdAndUpdate(user._id, {
+    await User.findByIdAndUpdate(newUserWith._id, {
       token
     })
-    // res.status(201).json({
-    //   status: "success",
-    //   user: newUserWithToken
-    // })
+    id = newUserWith._id
+    balance = newUserWith.balance
   }
+
   return res.redirect(
-    `${FRONTEND_URL}?token=${token}&email=${email}&name=${name}&avatarUrl=${avatarUrl}`
+    `${FRONTEND_URL}?token=${token}&_id=${id}&email=${email}&name=${name}&avatarUrl=${avatarUrl}&balance=${balance}`
   )
 }
 module.exports = {googleAuth, googleRedirect}

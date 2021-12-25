@@ -5,6 +5,7 @@ const getUser = require("./getUser")
 const patchUserAvatar = require("./patchUserAvatar")
 const updateUserBalance = require("./updateUserBalance")
 const {googleAuth, googleRedirect} = require("./googleLogin")
+const googleAuthWithReact = require("./googleLogin-withReact")
 module.exports = {
   register,
   login,
@@ -13,5 +14,6 @@ module.exports = {
   patchUserAvatar,
   updateUserBalance,
   googleRedirect,
-  googleAuth
+  googleAuth,
+  googleAuthWithReact
 }

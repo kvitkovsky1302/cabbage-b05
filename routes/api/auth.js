@@ -10,7 +10,8 @@ const {
   patchUserAvatar,
   updateUserBalance,
   googleAuth,
-  googleRedirect
+  googleRedirect,
+  googleAuthWithReact
 } = require("../../controllers/auth")
 const {validationRulesPostAuth} = require("../../validations/auth")
 const {validationRulesUpdateBalance} = require("../../validations/balance")
@@ -51,5 +52,5 @@ router.patch(
 )
 router.get("/google", controllersWrapper(googleAuth))
 router.get("/google-redirect", controllersWrapper(googleRedirect))
-
+router.post("/google", controllersWrapper(googleAuthWithReact))
 module.exports = router
