@@ -19,7 +19,7 @@ const validator = require("../../validations/midleware")
 const upload = require("../../controllers/upload")
 
 router.post(
-  "/user/signup",
+  "/users/signup",
   validator(validationRulesPostAuth),
   controllersWrapper(register)
 )
