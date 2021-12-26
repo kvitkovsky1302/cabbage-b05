@@ -28,7 +28,7 @@ const getTransactions = async (req, res) => {
       const resultForMonth = result.filter(({month}) => value === month)
       // const month = moment(resultForMonth[0].date).format("MMMM")
       const month = resultForMonth[0].month
-      const sum = resultForMonth.reduce((acc, {month, sum}) => sum + acc, 0)
+      const sum = resultForMonth.reduce((acc, {sum}) => sum + acc, 0)
       return {month, sum}
     })
   } else {
