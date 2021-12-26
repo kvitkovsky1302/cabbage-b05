@@ -11,7 +11,10 @@
   },
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "servers": [{"url": "http://localhost:3001"}],
+  "servers": [
+    {"url": "https://obscure-meadow-53073.herokuapp.com"},
+    {"url": "http://localhost:3001"}
+  ],
   "tags": [
     {
       "name": "Auth",
@@ -124,6 +127,22 @@
           },
           "404": {
             "description": "User not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/auth/google": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Google authentication",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {}
+          },
+          "403": {
+            "description": "Not registered",
             "content": {}
           }
         }
@@ -266,7 +285,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetExpensesRequest"
+                  "$ref": "#/components/schemas/GetExpensesResponse"
                 }
               }
             }
@@ -292,7 +311,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ExpenseRequest"
+                "$ref": "#/components/schemas/AddExpenseRequest"
               }
             }
           }
@@ -303,7 +322,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ExpenseResponse"
+                  "$ref": "#/components/schemas/AddExpenseResponse"
                 }
               }
             }
@@ -392,7 +411,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetIncomeRequest"
+                  "$ref": "#/components/schemas/GetIncomeResponse"
                 }
               }
             }
@@ -418,7 +437,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IncomeRequest"
+                "$ref": "#/components/schemas/AddIncomeRequest"
               }
             }
           }
@@ -429,7 +448,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IncomeResponse"
+                  "$ref": "#/components/schemas/AddIncomeResponse"
                 }
               }
             }
@@ -491,7 +510,7 @@
   "components": {
     "schemas": {
       "RegistrationRequest": {
-        "required": ["email", "password", "name"],
+        "required": ["email", "password"],
         "type": "object",
         "properties": {
           "email": {
@@ -711,7 +730,7 @@
           }
         }
       },
-      "GetExpensesRequest": {
+      "GetExpensesResponse": {
         "type": "object",
         "properties": {
           "status": {
@@ -747,6 +766,11 @@
                   "description": "Transaction sum",
                   "example": 30
                 },
+                "date": {
+                  "type": "integer",
+                  "description": "Date",
+                  "example": 1630843994253
+                },
                 "year": {
                   "type": "string",
                   "description": "Year",
@@ -777,7 +801,33 @@
           }
         }
       },
-      "ExpenseResponse": {
+      "AddExpenseRequest": {
+        "required": ["category", "description", "sum"],
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "Category name",
+            "example": "продукты"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description",
+            "example": "молоко"
+          },
+          "sum": {
+            "type": "number",
+            "description": "Transaction sum",
+            "example": 30
+          },
+          "date": {
+            "type": "string",
+            "description": "Date",
+            "example": "1630843994253"
+          }
+        }
+      },
+      "AddExpenseResponse": {
         "type": "object",
         "properties": {
           "status": {
@@ -803,9 +853,9 @@
                 "example": 30
               },
               "date": {
-                "type": "string",
+                "type": "integer",
                 "description": "Date",
-                "example": "1630843994253"
+                "example": 1630843994253
               },
               "year": {
                 "type": "string",
@@ -846,32 +896,6 @@
           }
         }
       },
-      "ExpenseRequest": {
-        "required": ["category", "description", "sum"],
-        "type": "object",
-        "properties": {
-          "category": {
-            "type": "string",
-            "description": "Category name",
-            "example": "продукты"
-          },
-          "description": {
-            "type": "string",
-            "description": "Description",
-            "example": "молоко"
-          },
-          "sum": {
-            "type": "number",
-            "description": "Transaction sum",
-            "example": 30
-          },
-          "date": {
-            "type": "string",
-            "description": "Date",
-            "example": "1630843994253"
-          }
-        }
-      },
       "DeleteExpenseResponse": {
         "type": "object",
         "properties": {
@@ -886,7 +910,7 @@
           }
         }
       },
-      "GetIncomeRequest": {
+      "GetIncomeResponse": {
         "type": "object",
         "properties": {
           "status": {
@@ -922,6 +946,11 @@
                   "description": "Transaction sum",
                   "example": 25000
                 },
+                "date": {
+                  "type": "integer",
+                  "description": "Date",
+                  "example": 1630843994253
+                },
                 "year": {
                   "type": "string",
                   "description": "Year",
@@ -952,7 +981,7 @@
           }
         }
       },
-      "IncomeRequest": {
+      "AddIncomeRequest": {
         "required": ["category", "description", "sum"],
         "type": "object",
         "properties": {
@@ -978,7 +1007,7 @@
           }
         }
       },
-      "IncomeResponse": {
+      "AddIncomeResponse": {
         "type": "object",
         "properties": {
           "status": {
@@ -1004,9 +1033,9 @@
                 "example": 25000
               },
               "date": {
-                "type": "string",
+                "type": "integer",
                 "description": "Date",
-                "example": "1630843994253"
+                "example": 1630843994253
               },
               "year": {
                 "type": "string",
