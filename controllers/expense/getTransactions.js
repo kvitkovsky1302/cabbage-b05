@@ -20,16 +20,17 @@ const getTransactions = async (req, res) => {
   const uniqueMonths = new Set()
 
   if (yearSummary) {
-    const result = await Expense.find({year})
+    const result = await Expense.find(filter).populate("owner", "email _id")
     result.forEach(async ({month}) => {
       uniqueMonths.add(month)
     })
     data = [...uniqueMonths].map(value => {
       const resultForMonth = result.filter(({month}) => value === month)
-      // const month = moment(resultForMonth[0].date).format("MMMM")
-      const month = resultForMonth[0].month
+      const month = moment(resultForMonth[0].date).format("MMMM")
+      // const month = resultForMonth[0].month
+      const owner = resultForMonth[0].owner
       const sum = resultForMonth.reduce((acc, {sum}) => sum + acc, 0)
-      return {month, sum}
+      return {month, sum, owner}
     })
   } else {
     data = await Expense.find(filter).populate("owner", "email _id")
