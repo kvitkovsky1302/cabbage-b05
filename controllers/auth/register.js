@@ -3,6 +3,7 @@ const gravatar = require("gravatar")
 const {User} = require("../../model/index")
 
 const register = async (req, res) => {
+  console.log("req", req)
   const {email, password} = req.body
   const avatarUrl = gravatar.url(email, {s: "250", r: "x", d: "robohash"})
   const result = await User.findOne({email})

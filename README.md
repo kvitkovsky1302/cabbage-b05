@@ -19,7 +19,7 @@
   В браузере открыть ссылку `http://localhost:3001/api-docs/`
 - ### Регистрация:
 
-  **`post`** `localhost:3001/api/auth/user/signup`
+  **`post`** `localhost:3001/api/auth/users/signup`
 
   ```js
   {
@@ -99,7 +99,8 @@
   ```
 
 - ### Получение транзакций расхода
-  **`get`** `localhost:3001/api/expense?category=техника&month=12&year=2021`
+  **`get`**
+  `localhost:3001/api/expense?category=техника&month=12&yearSummary=2021`
 
 ```js
 {

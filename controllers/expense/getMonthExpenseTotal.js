@@ -1,24 +1,7 @@
 const {Expense} = require("../../model/index")
 const moment = require("moment")
 
-moment.updateLocale("ru", {
-  months: [
-    "Январь",
-    "Февраль",
-    "Март",
-    "Апрель",
-    "Май",
-    "Июнь",
-    "Июль",
-    "Август",
-    "Сентябрь",
-    "Октябрь",
-    "Ноябрь",
-    "Декабрь"
-  ]
-})
-
-const getTransactions = async (req, res) => {
+const getMonthExpenseTotal = async (req, res) => {
   const {month, year, category, yearSummary} = req.query
   const {_id} = req.user
   const filter = {owner: _id}
@@ -41,6 +24,7 @@ const getTransactions = async (req, res) => {
     result.forEach(async ({month}) => {
       uniqueMonths.add(month)
     })
+    console.log("uniqueMonths", uniqueMonths)
     data = [...uniqueMonths].map(value => {
       const resultForMonth = result.filter(({month}) => value === month)
       const month = moment(resultForMonth[0].date).format("MMMM")
@@ -56,4 +40,4 @@ const getTransactions = async (req, res) => {
   res.status(200).json({status: "success", totalSum, data})
 }
 
-module.exports = getTransactions
+module.exports = getMonthExpenseTotal
