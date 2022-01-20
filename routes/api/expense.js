@@ -6,8 +6,7 @@ const validator = require("../../validations/midleware")
 const {
   postTransaction,
   deleteTransaction,
-  getTransactions,
-  getMonthExpenseTotal
+  getTransactions
 } = require("../../controllers/expense")
 const {validationRulesPostTransaction} = require("../../validations/expense")
 
@@ -28,9 +27,4 @@ router.get(
   controllersWrapper(getTransactions)
 )
 
-router.get(
-  "/",
-  controllersWrapper(authenticate),
-  controllersWrapper(getMonthExpenseTotal)
-)
 module.exports = router
