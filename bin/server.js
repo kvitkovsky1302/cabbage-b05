@@ -5,7 +5,13 @@ const {DB_HOST, PORT = 3001} = process.env
 
 ;(async () => {
   try {
-    await mongoose.connect(DB_HOST)
+    await mongoose.connect(DB_HOST, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+      // These parameters are no longer supported from version Mongoose 6.x
+      // useFindAndModify: false,
+      // useCreateIndex: true,
+    })
     console.log("Успешное подключение к базе данных")
   } catch (err) {
     console.log(err.message)
