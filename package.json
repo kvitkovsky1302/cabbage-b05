@@ -11,12 +11,14 @@
   },
   "dependencies": {
     "@sendgrid/mail": "^7.6.0",
+    "axios": "^0.21.4",
     "bcrypt": "^5.0.1",
     "cors": "2.8.5",
     "cross-env": "7.0.3",
     "dotenv": "^10.0.0",
     "express": "4.17.1",
     "express-validator": "^6.13.0",
+    "google-auth-library": "^7.11.0",
     "gravatar": "^1.8.2",
     "http-errors": "^1.8.0",
     "jimp": "^0.16.1",
@@ -25,7 +27,8 @@
     "mongoose": "^6.0.13",
     "morgan": "1.10.0",
     "multer": "^1.4.3",
-    "uuid": "^8.3.2"
+    "query-string": "^7.0.1",
+    "swagger-ui-express": "^4.3.0"
   },
   "devDependencies": {
     "eslint": "^7.19.0",

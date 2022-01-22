@@ -7,24 +7,29 @@ const {
   login,
   logout,
   getUser,
-  patchUserAvatar
-} = require("../../controllers/auth/index")
+  patchUserAvatar,
+  updateUserBalance,
+  googleAuth,
+  googleRedirect,
+  googleAuthWithReact
+} = require("../../controllers/auth")
 const {validationRulesPostAuth} = require("../../validations/auth")
+const {validationRulesUpdateBalance} = require("../../validations/balance")
 const validator = require("../../validations/midleware")
 const upload = require("../../controllers/upload")
 
 router.post(
-  "/user/signup",
+  "/users/signup",
   validator(validationRulesPostAuth),
   controllersWrapper(register)
 )
 router.post(
-  "/user/signin",
+  "/users/signin",
   validator(validationRulesPostAuth),
   controllersWrapper(login)
 )
 router.post(
-  "/user/signout",
+  "/users/signout",
   controllersWrapper(authenticate),
   controllersWrapper(logout)
 )
@@ -39,4 +44,13 @@ router.patch(
   upload.single("avatar"),
   controllersWrapper(patchUserAvatar)
 )
+router.patch(
+  "/users/balance",
+  controllersWrapper(authenticate),
+  validator(validationRulesUpdateBalance),
+  controllersWrapper(updateUserBalance)
+)
+router.get("/google", controllersWrapper(googleAuth))
+router.get("/google-redirect", controllersWrapper(googleRedirect))
+router.post("/google", controllersWrapper(googleAuthWithReact))
 module.exports = router

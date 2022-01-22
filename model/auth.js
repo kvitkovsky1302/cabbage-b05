@@ -2,6 +2,9 @@ const {Schema, model} = require("mongoose")
 const bcrypt = require("bcrypt")
 const userSchema = Schema(
   {
+    name: {
+      type: String
+    },
     password: {
       type: String,
       required: [true, "Password is required"]
@@ -18,6 +21,10 @@ const userSchema = Schema(
     avatarUrl: {
       type: String,
       required: [true, "Avatar is required"]
+    },
+    balance: {
+      type: Number,
+      default: null
     }
   },
   {versionKey: false, timestamps: true}
