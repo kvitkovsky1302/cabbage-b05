@@ -5,12 +5,7 @@ const {DB_HOST, PORT = 3001} = process.env
 
 ;(async () => {
   try {
-    await mongoose.connect(DB_HOST, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-      }
-    })
+    await mongoose.connect(DB_HOST)
     console.log("Успешное подключение к базе данных")
   } catch (err) {
     console.log(err.message)
