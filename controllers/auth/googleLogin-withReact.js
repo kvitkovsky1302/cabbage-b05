@@ -23,6 +23,7 @@ const googleAuthWithReact = async (req, res) => {
       },
       {new: true}
     )
+    console.log("userWithToken", userWithToken)
     res.status(200).json({
       status: "success",
       user: userWithToken
